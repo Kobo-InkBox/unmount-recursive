@@ -1,0 +1,24 @@
+[package]
+name = "umount-recursive"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+nix = { version = "0.28.0", features = ["mount"], default-features = false }
+clap = { version = "4.2.1", features = ["derive", "std"], default-features = false }
+lfs-core = "0.11.2"
+log = "0.4.0"
+env_logger = { default-features = false, version = "0.10.0" }
+
+[profile.release.package."*"]
+strip = true
+opt-level = "z"
+codegen-units = 1
+
+[profile.release]
+strip = true
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"   # remove this for some debug info
